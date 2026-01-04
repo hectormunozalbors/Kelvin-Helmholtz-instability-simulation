@@ -69,7 +69,7 @@ u.differentiate('y',out=uy)
 v.differentiate('y',out=vy)
 S.differentiate('y',out=Sy)
 
-solver.stop_sim_time = 2.01
+solver.stop_sim_time = 20.01
 solver.stop_wall_time = np.inf
 solver.stop_iteration = np.inf
 
@@ -100,6 +100,13 @@ while solver.ok:
     if solver.iteration % 10 == 0:
         # Update plot of scalar field
         p.set_array(S['g'].T.ravel())
+
+        axis.set_title(
+            f"frame {solver.iteration//10}, "
+            f"iteration {solver.iteration},"
+            f" time {solver.sim_time:.3f}"
+        )
+
         fig.canvas.draw_idle()
         fig.canvas.flush_events()
         logger.info('Iteration: %i, Time: %e, dt: %e' %(solver.iteration, solver.sim_time, dt))
